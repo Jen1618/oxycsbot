@@ -12,6 +12,7 @@ class OxyCSBot(ChatBot):
         'specific_faculty',
         'unknown_faculty',
         'unrecognized_faculty',
+        'state2',
     ]
 
     TAGS = {

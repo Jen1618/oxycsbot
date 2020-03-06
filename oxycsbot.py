@@ -111,6 +111,7 @@ class OxyCSBot(ChatBot):
         Returns:
             str: The message to send to the user.
         """
+        return "Hey how are you doing."
         self.professor = None
         if 'office-hours' in tags:
             for professor in self.PROFESSORS:

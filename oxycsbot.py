@@ -22,6 +22,7 @@ class OxyCSBot(ChatBot):
         'communication_crush',
         'no_communication',
         'yes_communication',
+        'breakdown',
         'no_response',
         'next_response',
         'unsure',
@@ -288,9 +289,16 @@ class OxyCSBot(ChatBot):
 
     def respond_from_no_communication(self, message, tags):
         if 'yes' in tags:
-            print("Have you ever tried talking to them? Maybe a little study date? ;)")
-            response1 = input()
-            return self.go_to_state('no_response')
+            return self.go_to_state('breakdown')
+
+    def on_enter_breakdown(self):
+        response = '\n'.join([
+            f'Have you ever tried talking to them? Maybe a little study date? ;)'
+        ])
+        return response
+
+    def respond_from_breakdown(self, message, tags):
+        return self.go_to_state('no_response')
 
     def on_enter_no_response(self):
         response = '\n'.join([

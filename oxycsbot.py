@@ -315,18 +315,5 @@ class OxyCSBot(ChatBot):
         """Send a message and go to the default state."""
         return "Sorry, I'm just a simple bot that can't understand much."
 
-    def finish_success(self):
-        """Send a message and go to the default state."""
-        return 'Great, let me know if you need anything else!'
-
-    def finish_fail(self):
-        """Send a message and go to the default state."""
-        return "I've tried my best but I still don't understand."
-
-    def finish_thanks(self):
-        """Send a message and go to the default state."""
-        return "You're welcome!"
-
-
 if __name__ == '__main__':
     OxyCSBot().chat()

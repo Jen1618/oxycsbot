@@ -65,6 +65,12 @@ class OxyCSBot(ChatBot):
         'a little bit': 'kind of',
         'probably talk to them': 'class',
         'after class': 'class',
+
+        # Restarting words
+        'hello': 'hello',
+        'restart': 'hello',
+        'end': 'hello',
+
     }
 
     def __init__(self):
@@ -102,6 +108,8 @@ class OxyCSBot(ChatBot):
             return self.go_to_state('has_crush')
         elif 'yes' in tags:
             return self.go_to_state('yes_explained_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.finish('confused')
 
@@ -118,6 +126,8 @@ class OxyCSBot(ChatBot):
     def respond_from_has_crush(self, message, tags):
         if 'yes' in tags:
             return self.go_to_state('middle_has_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.go_to_state('middle_has_crush')
 
@@ -130,6 +140,8 @@ class OxyCSBot(ChatBot):
     def respond_from_middle_has_crush(self, message, tags):
         if 'yes' in tags:
             return self.go_to_state('third_has_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             response = '\n'.join([
                 f'Aww sad. Ok well I miss you!'
@@ -153,6 +165,8 @@ class OxyCSBot(ChatBot):
     def respond_from_yes_explained_crush(self, message, tags):
         if 'yes' in tags:
             return self.go_to_state('user_has_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.go_to_state('no_has_crush')
 
@@ -178,6 +192,8 @@ class OxyCSBot(ChatBot):
             return self.go_to_state('csp')
         elif 'Biology' in tags:
             return self.go_to_state('biology')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.go_to_state('random')
 
@@ -214,22 +230,32 @@ class OxyCSBot(ChatBot):
     def respond_from_math(self, message, tags):
         if 'hilarious' in tags:
             return self.go_to_state('communication_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
 
     def respond_from_history(self, message, tags):
         if 'hilarious' in tags:
             return self.go_to_state('communication_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
 
     def respond_from_csp(self, message, tags):
         if 'hilarious' in tags:
             return self.go_to_state('communication_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
 
     def respond_from_biology(self, message, tags):
         if 'hilarious' in tags:
             return self.go_to_state('communication_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
 
     def respond_from_random(self, message, tags):
         if 'hilarious' in tags:
             return self.go_to_state('communication_crush')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
 
     # A new function that will move along to the next part of the chat
 
@@ -242,6 +268,8 @@ class OxyCSBot(ChatBot):
     def respond_from_communication_crush(self, message, tags):
         if 'no' in tags:
             return self.go_to_state('no_communication')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.go_to_state('yes_communication')
 
@@ -260,6 +288,8 @@ class OxyCSBot(ChatBot):
     def respond_from_yes_communication(self, message, tags):
         if 'good' in tags:
             return self.go_to_state('next_response')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
 
     def on_enter_next_response(self):
         response = '\n'.join([
@@ -270,6 +300,8 @@ class OxyCSBot(ChatBot):
     def respond_from_next_response(self, message, tags):
         if 'kind of' in tags:
             return self.go_to_state('unsure')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.go_to_state('elaborate')
 
@@ -290,6 +322,8 @@ class OxyCSBot(ChatBot):
     def respond_from_no_communication(self, message, tags):
         if 'yes' in tags:
             return self.go_to_state('breakdown')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
 
     def on_enter_breakdown(self):
         response = '\n'.join([
@@ -298,7 +332,10 @@ class OxyCSBot(ChatBot):
         return response
 
     def respond_from_breakdown(self, message, tags):
-        return self.go_to_state('no_response')
+        if 'hello' in tags:
+            return self.go_to_state('start')
+        else:
+            return self.go_to_state('no_response')
 
     def on_enter_no_response(self):
         response = '\n'.join([
@@ -309,6 +346,8 @@ class OxyCSBot(ChatBot):
     def respond_from_no_response(self, message, tags):
         if 'yes' in tags:
             return self.go_to_state('determine_state')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.go_to_state('no_response')
 
@@ -321,6 +360,8 @@ class OxyCSBot(ChatBot):
     def respond_from_determine_state(self, message, tags):
         if 'class' in tags:
             return self.go_to_state('class')
+        elif 'hello' in tags:
+            return self.go_to_state('start')
         else:
             return self.go_to_state('text')
 

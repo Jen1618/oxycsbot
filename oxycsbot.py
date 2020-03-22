@@ -26,7 +26,7 @@ class OxyCSBot(ChatBot):
         'next_response',
         'unsure',
         'elaborate',
-        'determine_state'
+        'determine_state',
         'class',
         'text',
     ]
@@ -34,10 +34,10 @@ class OxyCSBot(ChatBot):
     TAGS = {
 
         # classes
-        'Math': 'Math',
-        'History': 'History',
-        'CSP': 'CSP',
-        'Biology': 'Biology',
+        'math': 'Math',
+        'history': 'History',
+        'csp': 'CSP',
+        'biology': 'Biology',
 
         # generic
         'thanks': 'thanks',
@@ -53,16 +53,16 @@ class OxyCSBot(ChatBot):
         'good joke': 'hilarious',
         'stop making fun of me': 'hilarious',
         'It is going well': 'good',
-        'we get along' : 'good',
+        'we get along': 'good',
         'good': 'good',
-        'I really like them' : 'good',
+        'I really like them': 'good',
         'we talk a lot': 'good',
-        'sort of' : 'kind of',
-        'sometimes' : 'kind of',
-        'on occasion' : 'kind of',
-        'a little bit' : 'kind of',
-        'probably talk to them' : 'class',
-        'after class' : 'class',
+        'sort of': 'kind of',
+        'sometimes': 'kind of',
+        'on occasion': 'kind of',
+        'a little bit': 'kind of',
+        'probably talk to them': 'class',
+        'after class': 'class',
     }
 
     def __init__(self):
@@ -100,7 +100,7 @@ class OxyCSBot(ChatBot):
         ])
         return response
 
-        #The users response from has_crush does not really matter since they will both lead down the same path
+        # The users response from has_crush does not really matter since they will both lead down the same path
 
     def respond_from_has_crush(self, message, tags):
         if 'yes' in tags:
@@ -145,7 +145,8 @@ class OxyCSBot(ChatBot):
 
     def on_enter_no_has_crush(self):
         response = '\n'.join([
-            f'You need to take some different classes maybe sign up for some econ! Maybe someone else can give me better advice...thank you though! :)',
+            f'You need to take some different classes maybe sign up for some econ! Maybe someone else can give me '
+            f'better advice...thank you though! :)',
         ])
         return response
 
@@ -193,7 +194,7 @@ class OxyCSBot(ChatBot):
 
     def on_enter_random(self):
         response = '\n'.join([
-            f'Bet you did not know that the mitochondria is the powerhouse of the cell because you were so distracted'
+            f'Bet you did not know a single thing on the final because you were so distracted'
         ])
         return response
 
@@ -271,12 +272,13 @@ class OxyCSBot(ChatBot):
         ])
         return response
 
-    #The functions that correspond to saying no after responding no to communication with crush
+    # The functions that correspond to saying no after responding no to communication with crush
 
     def respond_from_no_communication(self, message, tags):
-        print("Have you ever tried talking to them? Maybe a little study date? ;)")
-        response1 = input()
-        return self.go_to_state('no_response')
+        if 'yes' in tags:
+            print("Have you ever tried talking to them? Maybe a little study date? ;)")
+            response1 = input()
+            return self.go_to_state('no_response')
 
     def on_enter_no_response(self):
         response = '\n'.join([
@@ -288,7 +290,7 @@ class OxyCSBot(ChatBot):
         if 'yes' in tags:
             return self.go_to_state('determine_state')
         else:
-            return self.go_to_state('determine_state')
+            return self.go_to_state('no_response')
 
     def on_enter_determine_state(self):
         response = '\n'.join([
@@ -303,16 +305,10 @@ class OxyCSBot(ChatBot):
             return self.go_to_state('text')
 
     def on_enter_class(self):
-        response = '\n'.join([
-            f'I agree, irl is always better. You can really tell feelings. Let me know how it goes!!!'
-        ])
-        return
+        return "I agree, irl is always better. You can really tell feelings. Let me know how it goes!!!"
 
     def on_enter_text(self):
-        response = '\n'.join([
-            f'Wayyy less scary. Do it!!! Keep me updated.'
-        ])
-        return
+        return "Wayyy less scary. Do it!!! Keep me updated."
 
 
     def finish_confused(self):

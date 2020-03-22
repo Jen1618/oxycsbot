@@ -29,6 +29,7 @@ class OxyCSBot(ChatBot):
         'determine_state',
         'class',
         'text',
+        'start',
     ]
 
     TAGS = {
@@ -68,7 +69,6 @@ class OxyCSBot(ChatBot):
     def __init__(self):
         """Initialize the OxyCSBot.
         """
-        print("Hey! Have I told you about the cute boy in my CSP Class?")
         super().__init__(default_state='waiting')
         self.firstresponse = None
 
@@ -85,6 +85,18 @@ class OxyCSBot(ChatBot):
 
         self.firstresponse = None
 
+
+        if 'no' in tags:
+            return self.go_to_state('has_crush')
+        elif 'yes' in tags:
+            return self.go_to_state('yes_explained_crush')
+        else:
+            return self.go_to_state('start')
+
+    def on_enter_start(self):
+        return "Hey! Have I told you about the cute boy in my CSP Class?"
+
+    def respond_from_start(self, message, tags):
         if 'no' in tags:
             return self.go_to_state('has_crush')
         elif 'yes' in tags:
@@ -309,7 +321,6 @@ class OxyCSBot(ChatBot):
 
     def on_enter_text(self):
         return "Wayyy less scary. Do it!!! Keep me updated."
-
 
     def finish_confused(self):
         """Send a message and go to the default state."""

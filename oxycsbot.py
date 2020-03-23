@@ -11,6 +11,7 @@ class OxyCSBot(ChatBot):
         'yes_explained_crush',
         'has_crush',
         'middle_has_crush',
+        'no_class',
         'third_has_crush',
         'no_has_crush',
         'user_has_crush',
@@ -117,7 +118,7 @@ class OxyCSBot(ChatBot):
 
     def on_enter_has_crush(self):
         response = '\n'.join([
-            f'Ooooohhhh. I have to tell you. Do you have time right now or are you in class?',
+            f'Ooooohhhh. I have to tell you. Are you in class?',
         ])
         return response
 
@@ -129,7 +130,13 @@ class OxyCSBot(ChatBot):
         elif 'hello' in tags:
             return self.go_to_state('start')
         else:
-            return self.go_to_state('middle_has_crush')
+            return self.go_to_state('no_class')
+
+    def on_enter_no_class(self):
+        response = '\n'.join([
+            f'I have to tell you but it has to be person so we should meet up soon'
+        ])
+        return response
 
     def on_enter_middle_has_crush(self):
         response = '\n'.join([
